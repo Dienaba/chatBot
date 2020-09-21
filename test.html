@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="build/botui.min.css">
+  <link rel="stylesheet" href="build/botui-theme-default.css">
+</head>
+<body>
+  <div class="botui-app-container" id="hello-world">
+    <bot-ui></bot-ui>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="build/botui.js"></script>
+  <script>
+    var botui = new BotUI('hello-world');
+      botui.message.add({
+        content: 'Bonjour, Je suis Chat Botté, le conseiller virtuel d\'I-CAD, conçu pour répondre à toutes vos demandes.',
+        cssClass: 'notLike',
+        
+      })
+          botui.message.add({
+            content: 'Je connais déjà beaucoup de réponses, mais étant en plein apprentissage, je me perfectionne chaque jour',
+            cssClass: 'notLike'
+          });
+      botui.action.text({
+      autoHide: false,
+      action: {
+        size: 150,
+        maxlength: 150,
+      }
+    }).then(function (res) {
+      botui.message.add({
+
+        content: 'Test'
+      });
+    })
+    console.log('botui = ' , botui.action.allActions().autoHide);
+    // let toto = botui.allActions().autoHide
+   
+    let allActions = botui.action.allActions();
+    var getAction = { autoHide : allActions.autoHide, action : { size : allActions.text.size, maxlength: allActions.text.maxlength} }
+
+    function likePost(value) {
+      console.log('toto')
+      
+    }
+
+// Put the object into storage
+localStorage.setItem('testObject', JSON.stringify(getAction));
+
+// Retrieve the object from storage
+var retrievedObject = localStorage.getItem('testObject');
+
+console.log('retrievedObject: ', JSON.parse(retrievedObject));
+   
+
+    // console.log(JSON.parse(JSON.stringify(returnedTarget)));
+
+  
+
+
+    
+    
+
+     
+    
+    function btnRemoveAll() {
+      botui.message.removeAll()
+      botui.message.add({
+        content: 'Bonjour, Je suis Chat Botté, le conseiller virtuel d\'I-CAD, conçu pour répondre à toutes vos demandes.',
+        cssClass: 'notLike'
+      }).then(function () {
+        botui.message.add({
+          content: 'Je connais déjà beaucoup de réponses, mais étant en plein apprentissage, je me perfectionne chaque jour',
+          cssClass: 'notLike'
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
